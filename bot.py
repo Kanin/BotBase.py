@@ -1,9 +1,15 @@
+import asyncio
 import logging
+import os
 import sys
 
 import aiohttp
 import discord
 from discord.ext.commands import AutoShardedBot as DiscordBot
+from sqlalchemy.ext.asyncio import create_async_engine
+from sqlalchemy.orm import sessionmaker
+from sqlmodel.ext.asyncio.session import AsyncSession
+from utils.Database.transactions import fetch_birthday
 
 from config import config
 
@@ -31,13 +37,32 @@ class Bot(DiscordBot):
             command_prefix="!"
         )
 
+        loop = asyncio.new_event_loop()
+        # Argument Handling
+        self.debug: bool = any("debug" in arg.lower() for arg in sys.argv)
+
+        # Database
+        async def setup_database():
+            logger = logging.getLogger("sqlalchemy.engine.Engine")
+            for handler in logger.handlers:
+                logger.removeHandler(handler)
+            engine = create_async_engine(os.getenv("DATABASE_URL"), future=True, echo=False)
+            async_session = sessionmaker(engine, expire_on_commit=False, class_=AsyncSession)
+            return async_session
+        database = loop.run_until_complete(setup_database())
+        self.pool = database
+
+        async def test():
+            async with self.pool() as db:
+                user = await fetch_birthday(db=db, user_id="173237945149423619")
+                print(user.age)
+
+        loop.run_until_complete(test())
+
         # Commands/extensions
         self.initial_extensions = [
             "modules.events.ready"
         ]
-
-        # Argument Handling
-        self.debug: bool = any("debug" in arg.lower() for arg in sys.argv)
 
         # Logging
         discord_log = logging.getLogger("discord")

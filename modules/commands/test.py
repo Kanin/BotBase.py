@@ -10,7 +10,7 @@ key_perms = ["kick_members", "ban_members", "administrator", "manage_channels", 
              "mention_everyone", "manage_nicknames", "manage_roles", "manage_webhooks", "manage_emojis"]
 
 voice_perms = ["connect", "deafen_members", "move_members", "mute_members", "priority_speaker", "speak", "stream",
-               "use_voice_activation"]
+               "use_voice_activation", "use_embedded_activities"]
 
 
 class Testing(commands.Cog):
@@ -45,7 +45,8 @@ class Testing(commands.Cog):
         return status
 
     @user.command(name="info")
-    async def user_info(self, interaction: discord.Interaction, user: discord.Member):
+    async def user_info(self, interaction: discord.Interaction, user: discord.Member = None):
+        user = user or interaction.user
         em = discord.Embed(color=user.color)
         em.set_thumbnail(url=user.avatar.url)
         em.set_author(

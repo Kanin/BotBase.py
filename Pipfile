@@ -8,6 +8,10 @@ name = "pypi"
 python-dotenv = "*"
 pyyaml = "*"
 coloredlogs = "*"
+sqlmodel = "*"
+sqlalchemy = "*"
+asyncpg = "*"
+alembic = "*"
 
 [dev-packages]
 
