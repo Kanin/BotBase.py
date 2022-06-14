@@ -19,18 +19,18 @@ class User(Base):
         }
 
 
-class Birthdays(Base):
-    __tablename__ = "birthdays"
-    id = sa.Column(sa.String, sa.ForeignKey("user.id", ondelete="cascade"), primary_key=True)
-    birthday = sa.Column(sa.Date, nullable=False)
-    announce = sa.Column(sa.Boolean, default=False, nullable=False)
-
-    @property
-    def age(self) -> int:
-        return math.floor((date.today() - self.birthday).days / 365.25)
-
-    def __str__(self):
-        return f"{self.birthday}"
-
-    def __repr__(self):
-        return f"<Birthday id={self.id} birthday={self.birthday} announce={self.announce}>"
+# class Birthdays(Base):
+#     __tablename__ = "birthdays"
+#     id = sa.Column(sa.String, sa.ForeignKey("user.id", ondelete="cascade"), primary_key=True)
+#     birthday = sa.Column(sa.Date, nullable=False)
+#     announce = sa.Column(sa.Boolean, default=False, nullable=False)
+#
+#     @property
+#     def age(self) -> int:
+#         return math.floor((date.today() - self.birthday).days / 365.25)
+#
+#     def __str__(self):
+#         return f"{self.birthday}"
+#
+#     def __repr__(self):
+#         return f"<Birthday id={self.id} birthday={self.birthday} announce={self.announce}>"
