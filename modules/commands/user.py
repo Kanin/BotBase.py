@@ -4,6 +4,7 @@ import discord
 from discord import app_commands
 from discord.ext import commands
 
+from config import config
 from bot import Bot
 
 key_perms = ["kick_members", "ban_members", "administrator", "manage_channels", "manage_server", "manage_messages",
@@ -18,7 +19,7 @@ class Testing(commands.Cog):
         self.bot: Bot = bot
 
     user = app_commands.Group(name="user", description="Various information about a user",
-                              guild_ids=[553953983409029148])
+                              guild_ids=[int(config.home_guild)])
 
     @staticmethod
     def get_member_status(member):

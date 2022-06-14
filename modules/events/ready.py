@@ -61,8 +61,9 @@ class Ready(commands.Cog):
             if failed > 0:
                 message += f" | Failed to load {failed} {name}"
             self.bot.log.info(message)
-        await self.bot.tree.sync(guild=discord.Object(id=553953983409029148))
-        self.bot.log.info("Successfully syncd slash tree")
+        await self.bot.tree.sync()
+        await self.bot.tree.sync(guild=discord.Object(id=int(self.bot.config.home_guild)))
+        self.bot.log.info("Successfully synchronized slash tree")
 
 
 async def setup(bot):

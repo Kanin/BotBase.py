@@ -7,8 +7,6 @@ import coloredlogs
 import yaml
 from dotenv import load_dotenv
 
-from bot import Bot
-
 log = logging.getLogger("bot")
 
 
@@ -87,6 +85,8 @@ if __name__ == "__main__":
     if not os.getenv("TOKEN"):
         log.error("Please fill out config/.env before starting the bot")
         exit(1)
+
+    from bot import Bot
     bot = Bot()
     try:
         bot.run(os.getenv("TOKEN"))
