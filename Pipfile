@@ -4,7 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-"discord.py" = {editable = true, ref = "master", git = "https://github.com/Rapptz/discord.py.git"}
+discord-py = {editable = true, ref = "master", git = "https://github.com/Rapptz/discord.py.git"}
 python-dotenv = "*"
 pyyaml = "*"
 coloredlogs = "*"

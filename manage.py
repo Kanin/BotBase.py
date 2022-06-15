@@ -15,7 +15,12 @@ def makemigrations(message):
 
 @main.command()
 def migrate():
-    os.system(f"alembic upgrade head")
+    os.system("alembic upgrade head")
+
+
+@main.command()
+def makerequirements():
+    os.system("pipenv lock -r > requirements.txt")
 
 
 if __name__ == '__main__':
