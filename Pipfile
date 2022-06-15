@@ -12,6 +12,7 @@ sqlmodel = "*"
 sqlalchemy = "*"
 asyncpg = "*"
 alembic = "*"
+click = "*"
 
 [dev-packages]
 
